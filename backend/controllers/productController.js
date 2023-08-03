@@ -1,4 +1,5 @@
 const Product = require("../model/productModel");
+const Errorhandler=require("../utils/errorhandler")
 //create product
 module.exports.createProduct = async (req, res, next) => {
   const product = await Product.create(req.body);
@@ -15,15 +16,13 @@ module.exports.getAllProducts = async (req, res) => {
 
 
 //update product
-module.exports.updateProduct = async (req, res) => {
+module.exports.updateProduct = async (req, res,next) => {
 
-  try {
     let product = await Product.findById(req.params.id);
-    if (!product) {
-      return res.status(404).json({
-        success: false,
-        message: "Product not found",
-      });
+    if (!(await product)) {
+     
+      return next(new Errorhandler("Product not found",404));
+      
     }
     product = await Product.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -31,45 +30,34 @@ module.exports.updateProduct = async (req, res) => {
       useFindAndModify: false,
     });
     res.status(200).json({ status: true, product });
-  } catch (err) {
-    console.error("Error while deleting product:", err);
-    res.status(500).json({ success: false, message: "Internal server error" });
-  }
+ 
  
 };
 
 //Delete product
 module.exports.deleteProduct = async (req, res, next) => {
-  try {
     const product = await Product.findById(req.params.id);
     if (!product) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Product not found" });
+      
+      return next(new Errorhandler("Product not found",404));
+
     }
     await Product.deleteOne({ _id: req.params.id });
     res.status(200).json({ status: true, message: "product deleted successfully" });
-  } catch (err) {
-    console.error("Error while deleting product:", err);
-    res.status(500).json({ success: false, message: "Internal server error" });
-  }
+  
 
 };
 
 //Get product Detail
 module.exports.GetProductDetail=async(req,res,next)=>{
-  try {
     const product=await Product.findById(req.params.id);
     if(!product)
     {
-      return res
-      .status(404)
-      .json({ success: false, message: "Product not found" });
+      return next(new Errorhandler("Product not found",404));
     }
+    res.status(200).json({
+      success:true,
+      product
+    })
 
-    res.status(200).json({ status: true,product });
-  } catch (err) {
-    console.error("Error while deleting product:", err);
-    res.status(500).json({ success: false, message: "Internal server error" });
-  }
 }
