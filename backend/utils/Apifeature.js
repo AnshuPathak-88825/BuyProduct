@@ -14,6 +14,15 @@ class ApiFeature
         this.query=this.query.find({...keyword});
         return this;
     }
+    filter()
+    {
+        // copy value of querystr not passing referrence
+        const queryCopy={...this.querystr};
+        const removeField=["keyword","page","limit"];
+        removeField.forEach((key)=> {delete queryCopy[key]});
+        this.query=this.query.find({...queryCopy});
+        return this;
+    }
 
 }
 module.exports=ApiFeature;
