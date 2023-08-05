@@ -1,7 +1,7 @@
 const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncError");
 const User = require("../model/userModel");
-
+const jwtToken = require("../utils/jwtToken");
 //Register user
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -14,8 +14,7 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
       url: "profileUrl",
     },
   });
-  const token = await user.getJWTToken();
-  res.status(201).json({ status: true, token });
+  jwtToken(user, 201, res);
 });
 
 exports.loginUser = catchAsyncErrors(
@@ -26,18 +25,13 @@ exports.loginUser = catchAsyncErrors(
     }
     const user = await User.findOne({ email }).select("+password");
     if (!user) {
-      return next(new ErrorHandler("invalid email or password",401));
-    }  
-    const isPasswordMatched= await user.getJWTToken();
-    if (!isPasswordMatched) {
-      return next(new ErrorHandler("Invalid email or password",401));
+      return next(new ErrorHandler("invalid email or password", 401));
     }
-    const token=user.getJWTToken();
-    res.status(200).json({
-      success:true,
-      token
-    })
-
+    const isPasswordMatched = await user.getJWTToken();
+    if (!isPasswordMatched) {
+      return next(new ErrorHandler("Invalid email or password", 401));
+    }
+    jwtToken(user, 201, res);
   })
 );
 
