@@ -55,4 +55,9 @@ userSchema.methods.getJWTToken=function()
     });
 
 }
+userSchema.methods.comparePassword=async function(password)
+{
+    return await bcryptjs.compare(password,this.password);
+
+}
 module.exports=mongoose.model("User",userSchema);
