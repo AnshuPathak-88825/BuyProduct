@@ -4,6 +4,7 @@ const catchAsyncError = require("../middleware/catchAsyncError");
 const ApiFeature=require("../utils/Apifeature");
 //Create product
 module.exports.createProduct = catchAsyncError(async (req, res, next) => {
+  req.body.user=req.user.id;
   const product = await Product.create(req.body);
   res.status(201).json({
     status: true,
