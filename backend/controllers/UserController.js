@@ -116,9 +116,8 @@ exports.getUserDetails=catchAsyncErrors(async(req,res,next)=>{
   res.status(200).json({
     success:true,
     user,
-  })
-
-})
+  });
+});
 
 //update password
 exports.updatePassword=catchAsyncErrors(async(req,res,next)=>{
@@ -129,14 +128,28 @@ exports.updatePassword=catchAsyncErrors(async(req,res,next)=>{
   {
     return next(new ErrorHandler("Old password is incorrect",400));
   }
-  if(req.body.newPassword!=req.body.confirmPassword)
-  {
+  if(req.body.newPassword!=req.body.confirmPassword){
     return next(new ErrorHandler("password does is not match",400));
   }
   user.password=req.body.newPassword;
   await user.save({ validateBeforeSave: true });
   jwtToken(user,201,res);
+});
 
-
-  
-})
+//update user profile
+exports.updateUserProfile=catchAsyncErrors(async(req,res,next)=>{
+  const newUserData={
+    name:req.body.name,
+    email:req.body.email,
+  }
+  //  will add cloudinary later
+  const user=await User.findByIdAndUpdate(req.user.id,newUserData,{
+    new:true,
+    runValidators:true,
+    useFindAndyModify:false
+  });
+  res.status(200).json({
+    success:true,
+    user
+  })
+});
