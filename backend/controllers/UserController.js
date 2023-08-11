@@ -164,7 +164,7 @@ exports.GetAllUser=catchAsyncErrors(async(req,res,next)=>{
 })
 
 
-// //Get single user (admin) 
+// Get single user (admin) 
 exports.GetSingleUser=catchAsyncErrors(async(req,res,next)=>{
   const user=await User.findById(req.params.id);
   if(!user)
@@ -175,4 +175,34 @@ exports.GetSingleUser=catchAsyncErrors(async(req,res,next)=>{
     success:true,
     user
   })
+})
+
+// Get user role controller for admin to assign role
+exports.updateUserRole=catchAsyncErrors(async(req,res,next)=>{
+  const newUserData={
+    name:req.body.name,
+    email:req.body.email,
+    role:req.body.role,
+  }
+  const user=await User.findByIdAndUpdate(req.params.id,newUserData,{
+    new:true,
+    runValidators:true,
+    useFindAndyModify:false
+  });
+  res.status(200).json({
+    success:true,
+    user
+  })
+});
+
+//Delete user (Admin)
+exports.DeleteUser=catchAsyncErrors(async(req,res,next)=>{
+  //we will remove cloudnary later
+  const user =await User.findById(req.params.id);
+  if(!user)
+  {
+    return next(new ErrorHandler(`User not exist with id ${req.params.id}`,404));
+  }
+  await User.deleteOne({ _id: req.params.id });
+  res.status(200).json({ status: true, message: "User deleted successfully" });
 })
