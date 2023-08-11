@@ -165,4 +165,14 @@ exports.GetAllUser=catchAsyncErrors(async(req,res,next)=>{
 
 
 // //Get single user (admin) 
-// exports.Get
+exports.GetSingleUser=catchAsyncErrors(async(req,res,next)=>{
+  const user=await User.findById(req.params.id);
+  if(!user)
+  {
+    return next(new ErrorHandler("User not found"));
+  }
+  res.status(200).json({
+    success:true,
+    user
+  })
+})
