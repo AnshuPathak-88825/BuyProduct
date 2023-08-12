@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const errormiddleware = require("./middleware/error");
 const product = require("./routes/productRoute");
 const user = require("./routes/userRoute");
+const order=require("./routes/orderRoute");
 app.use(express.json());
 app.use(cookieParser());
 process.on("uncaughtException", (error) => {
@@ -13,5 +14,7 @@ process.on("uncaughtException", (error) => {
 });
 app.use("/api/vi", product);
 app.use("/api/vi", user);
+app.use("/api/vi", order);
+
 app.use(errormiddleware);
 module.exports = app;
