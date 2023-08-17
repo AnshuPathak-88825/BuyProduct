@@ -13,7 +13,7 @@ module.exports.createProduct = catchAsyncError(async (req, res, next) => {
 });
 // get all product
 module.exports.getAllProducts = catchAsyncError(async (req, res) => {
-  const ResultPerpage = 5;
+  const ResultPerpage = 8;
   const totalProducts = await Product.countDocuments({}); // Get total number of products
   const apifeature = new ApiFeature(Product.find(), req.query)
     .search()
@@ -94,7 +94,7 @@ exports.createProductReview = catchAsyncError(async (req, res, next) => {
   });
 
   product.ratings = avg / product.reviews.length;
-
+product.numofReviews=product.reviews.length;
   await product.save({ validateBeforeSave: false });
 
   res.status(200).json({
