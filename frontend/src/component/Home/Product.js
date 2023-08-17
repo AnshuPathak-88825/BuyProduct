@@ -2,24 +2,25 @@ import React from "react"
 import { Link } from "react-router-dom"
 import ReactStars from "react-rating-stars-component"
 import "./Home.css"
-const options = {
-  edit: false,
-  color: "rgba(20,20,20,0.1)",
-  activeColor: "tomato",
-  value: 2.5,
-  isHalf: true,
-  size: window.innerWidth < 600 ? 13 : 20,
-};
+
 const Product = ({ product }) => {
+  const options = {
+    edit: false,
+    color: "rgba(20,20,20,0.1)",
+    activeColor: "tomato",
+    value: product.ratings,
+    isHalf: true,
+    size: window.innerWidth < 600 ? 13 : 20,
+  };
   return (
     <Link id="productCard" to={product._id}>
-      <img src={product.image[0].url} />
+      <img src={product.image.url} />
       <p>{product.name}</p>
       <div>
-        <ReactStars {...options} />
-        <span>(256 Reviews)</span>
+        <ReactStars {...options} /> 
+        <span>{product.numofReviews}Reviews</span>
       </div>
-      <span>{product.price}</span>
+      <span>&#8377; {product.price}</span>
 
     </Link>
   );

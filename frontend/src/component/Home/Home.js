@@ -5,17 +5,7 @@ import Product from "./Product";
 import MetaData from "../layout/MetaData";
 import { getProduct } from "../../actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
-const product = {
-  name: "Blue Tshirt",
-  image: [
-    {
-      url:
-        "https://m.media-amazon.com/images/I/A13usaonutL._CLa%7C500%2C468%7C71el46eP1%2BL.png%7C0%2C0%2C500%2C468%2B0.0%2C0.0%2C500.0%2C468.0_AC_.png",
-    },
-  ],
-  price: "Rs3000",
-  _id: "a0",
-};
+
 const Home = () => {
   const dispatch = useDispatch();
  const a=useSelector((state)=>state.products);
@@ -36,19 +26,9 @@ const Home = () => {
       </div>
       <h2 className="homeHeading">Featured Products</h2>
       <div className="container" id="container">
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
+      {a.product&&a.product.map((p,index)=>{
+         return <Product key={index} product={p} />
+      })    }
       </div>
     </Fragment>
   );
