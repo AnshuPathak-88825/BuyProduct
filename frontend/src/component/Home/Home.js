@@ -7,19 +7,23 @@ import { getProduct } from "../../actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
 // import Loader from "../component/layout/Loader/Loader";
 import Loader from "../layout/Loader/Loader";
-
+import { useAlert } from "react-alert";
 
 const Home = () => {
+  const alert = useAlert();
   const dispatch = useDispatch();
   const a = useSelector((state) => state.products);
+  const { error, loading, product } = a;
   useEffect(() => {
+    if (error) {
+      return alert.error(error);
+    }
     dispatch(getProduct());
-  }, []);
-  console.log(a);
+  }, [dispatch, error]);
   return (
     <Fragment>
       {a.loading ? (
-        <Loader/>
+        <Loader />
       ) : (
         <Fragment>
           <MetaData title="ECommerce"></MetaData>
