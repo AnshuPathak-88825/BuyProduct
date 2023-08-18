@@ -5,7 +5,6 @@ import Product from "./Product";
 import MetaData from "../layout/MetaData";
 import { getProduct } from "../../actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
-// import Loader from "../component/layout/Loader/Loader";
 import Loader from "../layout/Loader/Loader";
 import { useAlert } from "react-alert";
 
@@ -13,7 +12,8 @@ const Home = () => {
   const alert = useAlert();
   const dispatch = useDispatch();
   const a = useSelector((state) => state.products);
-  const { error, loading, product } = a;
+  const { error, loading, product} = a;
+  console.log(a);
   useEffect(() => {
     if (error) {
       return alert.error(error);
@@ -38,9 +38,9 @@ const Home = () => {
           </div>
           <h2 className="homeHeading">Featured Products</h2>
           <div className="container" id="container">
-            {a.product &&
-              a.product.map((p, index) => {
-                return <Product key={index} product={p} />;
+            {a.products &&
+              a.products.map((product, index) => {
+                return <Product key={index} product={product} />;
               })}
           </div>
         </Fragment>
