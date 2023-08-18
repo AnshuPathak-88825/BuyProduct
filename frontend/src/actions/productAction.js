@@ -9,6 +9,7 @@ import {
   PRODUCT_DETAIL_SUCCESS,
 } from "../constants/productConstant";
 export const getProduct = () => async (dispatch) => {
+  
   try {
     dispatch({
       type: ALL_PRODUCT_REQUEST,
@@ -29,26 +30,26 @@ export const getProduct = () => async (dispatch) => {
   }
 };
 
-// export const getProductDetails = (id) => async (dispatch) => {
-//   try {
-//     dispatch({
-//       type: PRODUCT_DETAIL_REQUEST,
-//     });
-//     const { data } = await axios.get(
-//       `http://192.168.0.111:4000/api/vi/products/${id}`
-//     );
+export const getProductDetails = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: PRODUCT_DETAIL_REQUEST,
+    });
+    const { data } = await axios.get(
+      `http://192.168.0.111:4000/api/vi/products/${id}`
+    );
 
-//     dispatch({
-//       type: PRODUCT_DETAIL_SUCCESS,
-//       payload: data.product,
-//     });
-//   } catch (error) {
-//     dispatch({
-//       type: PRODUCT_DETAIL_SUCCESS,
-//       payload: error.message,
-//     });
-//   }
-// };
+    dispatch({
+      type: PRODUCT_DETAIL_SUCCESS,
+      payload: data.product,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_DETAIL_FAIL,
+      payload: error.message,
+    });
+  }
+};
 
 export const clearError = () => async (dispatch) => {
   dispatch({ type: CLEAR_ERROR });
