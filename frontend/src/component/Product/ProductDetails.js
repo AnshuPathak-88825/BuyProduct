@@ -3,19 +3,17 @@ import Carousel from "react-material-ui-carousel";
 import "./ProductDetails.css";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getProductDetails } from "../../actions/productAction";
+import { clearError, getProductDetails } from "../../actions/productAction";
 import ReactStars from "react-rating-stars-component";
 import ReviewCard from "./ReviewCard";
 import Loader from "../layout/Loader/Loader";
+import {useAlert} from "react-alert"
 
 export default function ProductDetails() {
+  const alert=useAlert();
   const a = useSelector((state) => state.productallDetail);
 
-  const dispatch = useDispatch();
-  const { id } = useParams();
-  useEffect(() => {
-    dispatch(getProductDetails(id));
-  }, [dispatch, id]);
+  const dispatch = useDispatch(); 
   const { error, loading, product } = a;
   const options = {
     edit: false,
@@ -25,6 +23,17 @@ export default function ProductDetails() {
     isHalf: true,
     size: window.innerWidth < 600 ? 20 : 25,
   };
+  
+  const { id } = useParams();
+  useEffect(() => {
+    if(error)
+    {
+      alert.error(error);
+      dispatch(clearError(dispatch)); 
+    }
+    dispatch(getProductDetails(id));
+  }, [dispatch, id,error,alert]);
+ 
 
   return (
     <Fragment>
