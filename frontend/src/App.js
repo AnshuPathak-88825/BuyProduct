@@ -10,7 +10,10 @@ import Header from "././component/layout/Header/Header";
 import Footer from "./component/layout/Footer/Footer";
 import WebFont from "webfontloader";
 import Home from "./component/Home/Home";
-import ProductDetails from "./component/Product/ProductDetails"
+import ProductDetails from "./component/Product/ProductDetails";
+import Product from "./component/Product/Product";
+import Search from "./component/Product/Search";
+
 
 function App() {
   React.useEffect(() => {
@@ -26,7 +29,9 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />}></Route>
-          <Route path="/products/:id" element={<ProductDetails/>}></Route>
+          <Route path="/products/:id" element={<ProductDetails />}></Route>
+          <Route path="/products" element={<Product />}></Route>
+          <Route path="/search" element={<Search />}></Route>
 
         </Routes>
         <Footer />
