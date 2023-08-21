@@ -12,7 +12,6 @@ export default function Product() {
     (state) => state.products
   );
   const { keyword } = useParams();
-console.log(keyword)
   useEffect(() => {
     dispatch(getProduct(keyword));
   }, [dispatch,keyword]);
