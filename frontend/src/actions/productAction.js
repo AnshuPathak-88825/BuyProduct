@@ -8,15 +8,13 @@ import {
   PRODUCT_DETAIL_REQUEST,
   PRODUCT_DETAIL_SUCCESS,
 } from "../constants/productConstant";
-export const getProduct = () => async (dispatch) => {
-  
+export const getProduct = (keyword="") => async (dispatch) => {
+  const link=`http://192.168.0.111:4000/api/vi/products?keyword=${keyword}`;
   try {
     dispatch({
       type: ALL_PRODUCT_REQUEST,
     });
-    const { data } = await axios.get(
-      "http://192.168.0.111:4000/api/vi/products"
-    );
+    const { data } = await axios.get(link);
 
     dispatch({
       type: ALL_PRODUCT_SUCCESS,

@@ -13,7 +13,7 @@ const ProductCard = ({ product }) => {
     size: window.innerWidth < 600 ? 13 : 20,
   };
   return (
-    <Link id="productCard" to={`products/${product._id}`}>
+    <Link id="productCard" to={`product/${product._id}`}>
       <img src={product.image[0].url} />
       <p>{product.name}</p>
       <div>
