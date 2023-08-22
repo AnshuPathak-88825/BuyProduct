@@ -7,13 +7,13 @@ import { clearError, getProductDetails } from "../../actions/productAction";
 import ReactStars from "react-rating-stars-component";
 import ReviewCard from "./ReviewCard";
 import Loader from "../layout/Loader/Loader";
-import {useAlert} from "react-alert"
-
+import { useAlert } from "react-alert";
+import MetaData from "../layout/MetaData";
 export default function ProductDetails() {
-  const alert=useAlert();
+  const alert = useAlert();
   const a = useSelector((state) => state.productallDetail);
 
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
   const { error, loading, product } = a;
   const options = {
     edit: false,
@@ -23,24 +23,24 @@ export default function ProductDetails() {
     isHalf: true,
     size: window.innerWidth < 600 ? 20 : 25,
   };
-  
+
   const { id } = useParams();
   useEffect(() => {
-    if(error)
-    {
+    if (error) {
       alert.error(error);
-      dispatch(clearError(dispatch)); 
+      dispatch(clearError(dispatch));
     }
     dispatch(getProductDetails(id));
-  }, [dispatch, id,error,alert]);
- 
+  }, [dispatch, id, error, alert]);
 
   return (
     <Fragment>
-      {(a.loading) ? (
+      {a.loading ? (
         <Loader />
       ) : (
         <Fragment>
+          <MetaData title={`${product.name}-- ECOMMERCE`}></MetaData>
+
           <div className="ProductDetails">
             <div>
               <Carousel>

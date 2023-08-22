@@ -8,7 +8,9 @@ import { useParams } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import { Slider, Typography } from "@material-ui/core";
 import {useAlert} from "react-alert"
+import MetaData from "../layout/MetaData";
 const categories = ["Laptop", "Footwear", "Bottom", "Tops", "Camera"];
+
 export default function Product() {
   const alert=useAlert();
   const dispatch = useDispatch();
@@ -50,6 +52,7 @@ export default function Product() {
         <Loader />
       ) : (
         <Fragment>
+          <MetaData title="PRODUCTS--ECOMMERCE"></MetaData>
           <h2 className="productHeading">Products</h2>
           <div className="products">
             {products &&
