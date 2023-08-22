@@ -7,8 +7,10 @@ import ProductCard from "../Home/ProductCard";
 import { useParams } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import { Slider, Typography } from "@material-ui/core";
+import {useAlert} from "react-alert"
 const categories = ["Laptop", "Footwear", "Bottom", "Tops", "Camera"];
 export default function Product() {
+  const alert=useAlert();
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([0, 25000]);
@@ -24,8 +26,13 @@ export default function Product() {
   } = useSelector((state) => state.products);
   const { keyword } = useParams();
   useEffect(() => {
+    if(error)
+    {
+      alert.error(error);
+      return dispatch(clearError());
+    }
     dispatch(getProduct(keyword, currentPage, price,category,ratings));
-  }, [dispatch, keyword, currentPage, price,category,ratings]);
+  }, [dispatch, keyword, currentPage, price,category,ratings,alert,error]);
 
   let count = filteredProductsCount;
   const setCurrentPageNo = (e) => {
