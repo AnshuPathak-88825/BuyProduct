@@ -39,7 +39,7 @@ export default function Product() {
                 <ProductCard key={product._id} product={product} />
               ))}
           </div>
-          {ResultPerpage==count&&(
+          {ResultPerpage == count && (
             <div className="paginationBox">
               <Pagination
                 activePage={currentPage}
