@@ -7,11 +7,13 @@ import ProductCard from "../Home/ProductCard";
 import { useParams } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import { Slider, Typography } from "@material-ui/core";
-
+const categories = ["Laptop", "Footwear", "Bottom", "Tops", "Camera"];
 export default function Product() {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([0, 25000]);
+  const [category,setCategory]=useState("");
+  const [ratings,setRatings]=useState(0);
   const {
     products,
     loading,
@@ -22,9 +24,9 @@ export default function Product() {
   } = useSelector((state) => state.products);
   const { keyword } = useParams();
   useEffect(() => {
-    dispatch(getProduct(keyword, currentPage, price));
-  }, [dispatch, keyword, currentPage, price]);
-  
+    dispatch(getProduct(keyword, currentPage, price,category,ratings));
+  }, [dispatch, keyword, currentPage, price,category,ratings]);
+
   let count = filteredProductsCount;
   const setCurrentPageNo = (e) => {
     console.log(e);
@@ -58,6 +60,36 @@ export default function Product() {
               min={0}
               max={25000}
             />
+            <Typography>Category</Typography>
+            <ul className="categoryBox">
+              {categories.map((category,value) => {
+                return (
+                  <li
+                    className="category-link"
+                    key={value}
+                    onClick={() => setCategory(category)}
+                  >
+                    {category}
+                  </li>
+                );
+              })}
+            </ul>
+            <fieldset>
+              <Typography component="legend">Ratings Above</Typography>
+              <Slider
+              value={ratings}
+              onChange={(e,newRating)=>{
+                e.preventDefault()
+                setRatings(newRating)
+              }}
+              aria-labelledby="continous-slider"
+              min={0}
+              max={5}
+              valueLabelDisplay="auto"
+
+              />
+              
+            </fieldset>
           </div>
           {ResultPerpage == count && (
             <div className="paginationBox">

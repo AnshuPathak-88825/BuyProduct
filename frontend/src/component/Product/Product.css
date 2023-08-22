@@ -8,9 +8,11 @@
 }
 .products {
   display: flex;
-  margin: 2vmax auto;
+  margin: 5vmax auto;
+
   width: 88vw;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .paginationBox {
   display: flex;
@@ -52,5 +54,46 @@
   width: 10vmax;
   position: absolute;
   top: 8vmax;
-  left: 4vmax;
+  left: 2vmax;
+}
+.categoryBox
+{
+  
+  padding: 0px;
+  text-decoration: none;
+}
+.category-link
+{
+  list-style: none;
+  color: rgba(0,0,0,0.61);
+  font: 400 0.9vmax "Roboto";
+  cursor: pointer;
+  transition: all 0.6s;
+  margin: 0.4vmax;
+}
+
+.category-link:hover
+{
+  color: tomato;
+}
+.filterBox >fieldset
+{
+  border: 1px solid rgba(0, 0, 0, 0.328);
+}
+@media screen and (max-width:600px)
+{
+  .filterBox
+  {
+    width: 20vmax;
+    position: static;
+    margin: auto;
+  }
+  .page-link
+  {
+    font: 300 1.7vmax "Roboto";
+  }
+  .category-link
+  {
+    font: 400 1.8vmax "Roboto";
+  }
 }

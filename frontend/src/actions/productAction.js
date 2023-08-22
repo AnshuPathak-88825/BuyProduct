@@ -11,10 +11,14 @@ import {
 export const getProduct = (
   keyword = "",
   currentPage = 1,
-  price = [0, 25000]
+  price = [0, 25000],
+  category,ratings=0
 ) => async (dispatch) => {
-  console.log(price);
-  const link = `http://192.168.0.111:4000/api/vi/products?keyword=${keyword}&page=${currentPage}&price[gt]=${price[0]}&price[lt]=${price[1]}`;
+  let link = `http://192.168.0.111:4000/api/vi/products?keyword=${keyword}&page=${currentPage}&price[gt]=${price[0]}&price[lt]=${price[1]}&ratings[gte]=${ratings}`;
+  if(category)
+  {
+    link=`http://192.168.0.111:4000/api/vi/products?keyword=${keyword}&page=${currentPage}&price[gt]=${price[0]}&price[lt]=${price[1]}&category=${category}`
+  }
   try {
     dispatch({
       type: ALL_PRODUCT_REQUEST,
