@@ -20,7 +20,8 @@ module.exports.getAllProducts = catchAsyncError(async (req, res) => {
     .filter()
     .pagination(ResultPerpage);
   const product = await apifeature.query;
-  res.status(200).json({ status: true, product, totalProducts });
+  let filteredProductsCount = product.length;
+  res.status(200).json({ status: true, product, totalProducts,ResultPerpage ,filteredProductsCount});
 });
 
 //update product
