@@ -13,7 +13,7 @@ import Home from "./component/Home/Home";
 import ProductDetails from "./component/Product/ProductDetails";
 import Product from "./component/Product/Product";
 import Search from "./component/Product/Search";
-
+import LoginSignup from "./User/LoginSIgnup";
 
 function App() {
   React.useEffect(() => {
@@ -32,9 +32,8 @@ function App() {
           <Route path="/product/:id" element={<ProductDetails />}></Route>
           <Route path="/products/:keyword" element={<Product />}></Route>
           <Route path="/products/" element={<Product />}></Route>
-
           <Route path="/search" element={<Search />}></Route>
-
+          <Route path="/login" element={<LoginSignup />}></Route>
         </Routes>
         <Footer />
       </BrowserRouter>

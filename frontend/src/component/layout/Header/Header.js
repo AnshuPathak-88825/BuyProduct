@@ -41,6 +41,7 @@ const Header = () => {
       cartIconColorHover="#eb4034"
       profileIconColorHover="#eb4034"
       searchIconColorHover="#eb4034"
+      profileIconUrl="/login"
     />
   );
 };
