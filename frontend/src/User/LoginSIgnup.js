@@ -8,7 +8,7 @@ import FaceIcon from "@material-ui/icons/Face";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import { Link ,useNavigate} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { login, clearErrors } from "../actions/userAction";
+import { login, clearErrors,register } from "../actions/userAction";
 import { useAlert } from "react-alert";
 export default function LoginSignup() {
   const navigate=useNavigate();
@@ -41,6 +41,7 @@ export default function LoginSignup() {
     myForm.set("email", email);
     myForm.set("password", password);
     myForm.set("avatar", avatar);
+    dispatch(register(myForm));
   };
   const registerDataChange = (e) => {
     if (e.target.value == "avatar") {

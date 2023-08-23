@@ -19,7 +19,9 @@ module.exports.getAllProducts = catchAsyncError(async (req, res) => {
     .search()
     .filter()
     .pagination(ResultPerpage);
+    
   const product = await apifeature.query;
+ 
   let filteredProductsCount = product.length;
   res.status(200).json({ status: true, product, totalProducts,ResultPerpage ,filteredProductsCount});
 });
