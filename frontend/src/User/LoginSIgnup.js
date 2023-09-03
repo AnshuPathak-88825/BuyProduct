@@ -29,33 +29,36 @@ export default function LoginSignup() {
   });
   const { name, email, password } = user;
   const [avatar, setAvatar] = useState(Profile);
-  const [avatarPreview, setAvatarPreview] = useState(Profile);
+
   const loginSubmit = (e) => {
     e.preventDefault();
     dispatch(login(loginEmail, loginPassword));
   };
   const registerSubmit = (e) => {
     e.preventDefault();
-    const myForm = new FormData();
-    myForm.set("name", name);
-    myForm.set("email", email);
-    myForm.set("password", password);
-    myForm.set("avatar", avatar);
+    let myForm = {};
+    myForm.name= name;
+    myForm.email=email;
+    myForm.password=password;
+    myForm.avatar=avatar;    
     dispatch(register(myForm));
   };
   const registerDataChange = (e) => {
-    if (e.target.value == "avatar") {
-      const reader = new FileReader();
-      reader.onload = () => {
-        if (reader.readyState === 2) {
-          setAvatarPreview(reader.result);
-          setAvatar(reader.result);
-        }
-        reader.readAsDataURL(e.target.files[0]);
-      };
-    } else {
+    
+   
       setUser({ ...user, [e.target.name]: e.target.value });
-    }
+  };
+  const handleImage = (e) => {
+    
+    const file = e.target.files[0];
+    const Reader = new FileReader();
+    
+    Reader.readAsDataURL(file);
+    Reader.onload = () => {
+      if (Reader.readyState === 2) {
+        setAvatar(Reader.result );
+      }
+    };
   };
   const switchTabs = (e, tab) => {
     if (tab === "Login") {
@@ -163,12 +166,12 @@ export default function LoginSignup() {
                   />
                 </div>
                 <div id="registerImage">
-                  <img src={avatarPreview} alt="Avatar Preview" />
+                  <img src={FaceIcon} alt="Avatar Preview" />
                   <input
                     type="file"
                     name="avatar"
                     accept="image/*"
-                    onChange={registerDataChange}
+                    onChange={handleImage}
                   />
                 </div>
                 <input type="submit" value="Register" className="signUpBtn" />

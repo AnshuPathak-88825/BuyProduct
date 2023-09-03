@@ -45,10 +45,10 @@ export default function ProductDetails() {
             <div>
               <Carousel>
                 {product.image &&
-                  product.image.map((i, key) => {
+                  product.image.map((i, value) => {
                     return (
                       <img
-                        key={key}
+                        key={value}
                         src={i.url}
                         alt={`${i} Slide`}
                         className="CarouselImage"
@@ -94,8 +94,8 @@ export default function ProductDetails() {
           {product.reviews && product.reviews[0] ? (
             <div className="reviews">
               {product.reviews &&
-                product.reviews.map((review, key) => (
-                  <ReviewCard review={review} key={key} />
+                product.reviews.map((review, value) => (
+                  <ReviewCard review={review} key={value} />
                 ))}
             </div>
           ) : (
