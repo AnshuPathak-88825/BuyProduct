@@ -5,6 +5,9 @@ import {
   CLEAR_ERROR, REGISTER_USER_FAIL,
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
+  LOAD_USER_FAIL,
+  LOAD_USER_REQUEST,
+  LOAD_USER_SUCCESS,
 } from "../constants/userConstant";
 
 import axios from "axios";
@@ -31,6 +34,18 @@ export const register = (useData) => async (dispatch) => {
     dispatch({ type: REGISTER_USER_FAIL, payload: error.response.data.message });
   }
 };
+
+export const loadUser = () => async (dispatch) => {
+  try {
+    dispatch({ type: LOAD_USER_REQUEST });
+    const { data } = await axios.get("http://192.168.0.111:4000/api/vi/me");
+    dispatch({type:LOAD_USER_SUCCESS,payload:data.user});
+
+  } catch (error) {
+    dispatch({ type: LOAD_USER_FAIL, payload: error.response.data.message });
+  }
+};
+
 
 //Clearing Errors
 export const clearErrors = () => async (dispatch) => {
