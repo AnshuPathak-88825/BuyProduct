@@ -166,7 +166,7 @@ export default function LoginSignup() {
                   />
                 </div>
                 <div id="registerImage">
-                  <img src={FaceIcon} alt="Avatar Preview" />
+                  <img src={Profile} alt="Avatar Preview" />
                   <input
                     type="file"
                     name="avatar"
