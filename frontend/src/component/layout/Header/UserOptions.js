@@ -7,10 +7,11 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ListAltIcon from "@material-ui/icons/ListAlt";
 import { useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
-import {useDispatch} from "react-redux"
+import { useDispatch } from "react-redux";
 import { logout } from "../../../actions/userAction";
+import Backdrop from "@material-ui/core/Backdrop";
 function UserOptions({ user }) {
- const dispatch= useDispatch()
+  const dispatch = useDispatch();
   const alert = useAlert();
   const navigate = useNavigate();
 
@@ -49,12 +50,15 @@ function UserOptions({ user }) {
 
   return (
     <Fragment>
+      <Backdrop open={open} style={{zIndex:"10"}}/>
       <SpeedDial
         ariaLabel="SpeedDial tooltip example"
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
         open={open}
+        className="speedDial"
         direction="down"
+        style={{zIndex:"11"}}
         icon={
           <img
             className="speedDialIcon"
