@@ -9,6 +9,8 @@ import {
   LOAD_USER_FAIL,
   LOAD_USER_REQUEST,
   LOAD_USER_SUCCESS,
+  LOGOUT_USER_SUCCESS,
+  LOGOUT_USER_FAIL,
 } from "../constants/userConstant";
 
 export const userReducer = (state = { user: {} }, action) => {
@@ -23,14 +25,18 @@ export const userReducer = (state = { user: {} }, action) => {
     case LOGIN_SUCCESS:
     case REGISTER_USER_SUCCESS:
     case LOAD_USER_SUCCESS:
-
       return {
         ...state,
         loading: false,
         isAuthenticated: true,
         user: action.payload,
       };
-    case LOGIN_FAIL:
+    case LOGOUT_USER_SUCCESS:
+      return {
+        loading: false,
+        user: null,
+        isAuthenticated: false,
+      };
     case REGISTER_USER_FAIL:
       return {
         ...state,
@@ -41,11 +47,17 @@ export const userReducer = (state = { user: {} }, action) => {
       };
 
     case LOAD_USER_FAIL:
+    case  LOGIN_FAIL:
       return {
-
         loading: false,
         isAuthenticated: false,
         user: null,
+        error: action.payload,
+      };
+    case LOGOUT_USER_FAIL:
+      return {
+        ...state,
+        loading: false,
         error: action.payload,
       };
     case CLEAR_ERROR:
