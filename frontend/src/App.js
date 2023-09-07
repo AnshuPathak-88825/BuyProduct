@@ -18,6 +18,7 @@ import store from "./store"
 import { loadUser } from "./actions/userAction";
 import UserOptions from "./component/layout/Header/UserOptions"
 import { useSelector, useDispatch } from "react-redux";
+import Profile from "./User/Profile";
 
 function App() {
   const { user, isAuthenticated } = useSelector((state) => state.user);
@@ -41,6 +42,8 @@ function App() {
           <Route path="/products/" element={<Product />}></Route>
           <Route path="/search" element={<Search />}></Route>
           <Route path="/login" element={<LoginSignup />}></Route>
+          <Route path="/account" element={<Profile />}></Route>
+
         </Routes>
         <Footer />
       </BrowserRouter>
