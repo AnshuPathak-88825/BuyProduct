@@ -14,11 +14,15 @@ import ProductDetails from "./component/Product/ProductDetails";
 import Product from "./component/Product/Product";
 import Search from "./component/Product/Search";
 import LoginSignup from "./User/LoginSIgnup";
-import store from "./store"
+import store from "./store";
 import { loadUser } from "./actions/userAction";
-import UserOptions from "./component/layout/Header/UserOptions"
+import UserOptions from "./component/layout/Header/UserOptions";
 import { useSelector, useDispatch } from "react-redux";
 import Profile from "./User/Profile";
+import UserUpdate from "./User/UserUpdate.js"
+
+
+
 
 function App() {
   const { user, isAuthenticated } = useSelector((state) => state.user);
@@ -43,6 +47,7 @@ function App() {
           <Route path="/search" element={<Search />}></Route>
           <Route path="/login" element={<LoginSignup />}></Route>
           <Route path="/account" element={<Profile />}></Route>
+          {isAuthenticated&&<Route path="/me/update" element={<UserUpdate />}></Route>}
 
         </Routes>
         <Footer />

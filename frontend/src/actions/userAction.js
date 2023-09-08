@@ -11,6 +11,10 @@ import {
   LOAD_USER_SUCCESS,
   LOGOUT_USER_SUCCESS,
   LOGOUT_USER_FAIL,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_FAIL,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_RESET,
 } from "../constants/userConstant";
 
 import axios from "axios";
@@ -65,6 +69,26 @@ export const logout = () => async (dispatch) => {
     dispatch({ type: LOGOUT_USER_FAIL, payload: error.response.data.message });
   }
 };
+
+
+export const updateUser = (useData) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_USER_REQUEST });
+    const config = { header: { "Content-Type": "multipart/form-data" } };
+    const { data } = await axios.put(
+      "http://192.168.0.111:4000/api/vi/me/update",
+      useData,
+      config
+    );
+    dispatch({ type: UPDATE_USER_SUCCESS, payload: data.user });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_USER_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
 
 //Clearing Errors
 export const clearErrors = () => async (dispatch) => {
