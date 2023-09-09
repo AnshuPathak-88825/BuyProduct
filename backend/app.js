@@ -8,7 +8,12 @@ const user = require("./routes/userRoute");
 const order=require("./routes/orderRoute");
 const fileUpload=require("express-fileupload");
 const bodyParser=require("body-parser");
-app.use(cors());
+const corsOptions = {
+  origin: 'http://localhost:1234', // Specify the origin(s) that are allowed to access this server
+  credentials: true, // Allow credentials (cookies, etc.)
+};
+
+app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' }));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended:true}));
