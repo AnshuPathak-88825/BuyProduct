@@ -21,9 +21,9 @@ import axios from "axios";
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: LOGIN_REQUEST });
-    const config = { header: { "Content-Type": "application/json" } };
+    const config = { withCredentials: true, header: { "Content-Type": "application/json" } };
     const { data } = await axios.post(
-      "http://192.168.0.111:4000/api/vi/login",
+      "http://localhost:4000/api/vi/login",
       { email, password },
       config
     );
@@ -36,9 +36,9 @@ export const login = (email, password) => async (dispatch) => {
 export const register = (useData) => async (dispatch) => {
   try {
     dispatch({ type: REGISTER_USER_REQUEST });
-    const config = { header: { "Content-Type": "multipart/form-data" } };
+    const config = { withCredentials: true, header: { "Content-Type": "multipart/form-data" } };
     const { data } = await axios.post(
-      "http://192.168.0.111:4000/api/vi/register",
+      "http://localhost:4000/api/vi/register",
       useData,
       config
     );
@@ -54,7 +54,9 @@ export const register = (useData) => async (dispatch) => {
 export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST });
-    const { data } = await axios.get("http://192.168.0.111:4000/api/vi/me");
+    const { data } = await axios.get("http://localhost:4000/api/vi/me", {
+      withCredentials: true, // Include credentials (cookies)
+    });
     dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
   } catch (error) {
     dispatch({ type: LOAD_USER_FAIL, payload: error.response.data.message });
@@ -63,7 +65,9 @@ export const loadUser = () => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   try {
-    const data = await axios.get("http://192.168.0.111:4000/api/vi/logout");
+    const data = await axios.get("http://localhost:4000/api/vi/logout", {
+      withCredentials: true, // Include credentials (cookies)
+    });
     dispatch({ type: LOGOUT_USER_SUCCESS, payload: data.message });
   } catch (error) {
     dispatch({ type: LOGOUT_USER_FAIL, payload: error.response.data.message });
@@ -74,9 +78,9 @@ export const logout = () => async (dispatch) => {
 export const updateUser = (useData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_USER_REQUEST });
-    const config = { header: { "Content-Type": "multipart/form-data" } };
+    const config = { withCredentials: true, header: { "Content-Type": "multipart/form-data" } };
     const { data } = await axios.put(
-      "http://192.168.0.111:4000/api/vi/me/update",
+      "http://localhost:4000/api/vi/me/update",
       useData,
       config
     );

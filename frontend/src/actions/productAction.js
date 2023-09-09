@@ -12,18 +12,19 @@ export const getProduct = (
   keyword = "",
   currentPage = 1,
   price = [0, 25000],
-  category,ratings=0
+  category, ratings = 0
 ) => async (dispatch) => {
-  let link = `http://192.168.0.111:4000/api/vi/products?keyword=${keyword}&page=${currentPage}&price[gt]=${price[0]}&price[lt]=${price[1]}&ratings[gte]=${ratings}`;
-  if(category)
-  {
-    link=`http://192.168.0.111:4000/api/vi/products?keyword=${keyword}&page=${currentPage}&price[gt]=${price[0]}&price[lt]=${price[1]}&category=${category}`
+  let link = `http://localhost:4000/api/vi/products?keyword=${keyword}&page=${currentPage}&price[gt]=${price[0]}&price[lt]=${price[1]}&ratings[gte]=${ratings}`;
+  if (category) {
+    link = `http://localhost:4000/api/vi/products?keyword=${keyword}&page=${currentPage}&price[gt]=${price[0]}&price[lt]=${price[1]}&category=${category}`
   }
   try {
     dispatch({
       type: ALL_PRODUCT_REQUEST,
     });
-    const { data } = await axios.get(link);
+    const { data } = await axios.get(link, {
+      withCredentials: true, // Include credentials (cookies)
+    });
 
     dispatch({
       type: ALL_PRODUCT_SUCCESS,
@@ -43,8 +44,10 @@ export const getProductDetails = (id) => async (dispatch) => {
       type: PRODUCT_DETAIL_REQUEST,
     });
     const { data } = await axios.get(
-      `http://192.168.0.111:4000/api/vi/products/${id}`
-    );
+      `http://localhost:4000/api/vi/products/${id}`
+      , {
+        withCredentials: true, // Include credentials (cookies)
+      });
 
     dispatch({
       type: PRODUCT_DETAIL_SUCCESS,
