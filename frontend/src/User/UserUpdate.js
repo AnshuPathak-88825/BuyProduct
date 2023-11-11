@@ -54,7 +54,7 @@ const UserUpdate = () => {
     }
     if (isUpdated) {
       alert.success("Profile updated successfully");
-      dispatch(loadUser);
+      dispatch(loadUser());
       navigate(`/account`);
       dispatch({ type: UPDATE_USER_RESET });
     }
