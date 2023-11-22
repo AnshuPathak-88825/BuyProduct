@@ -130,14 +130,14 @@ exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
 exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findById(req.user._id).select("+password");
 
-  const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
+  const isPasswordMatched = await user.comparePassword(req.body.oldpassword);
   if (!isPasswordMatched) {
     return next(new ErrorHandler("Old password is incorrect", 400));
   }
-  if (req.body.newPassword != req.body.confirmPassword) {
+  if (req.body.newpassword != req.body.confirmpassword) {
     return next(new ErrorHandler("password does is not match", 400));
   }
-  user.password = req.body.newPassword;
+  user.password = req.body.newpassword;
   await user.save({ validateBeforeSave: true });
   jwtToken(user, 201, res);
 });

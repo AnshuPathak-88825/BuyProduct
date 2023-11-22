@@ -20,7 +20,7 @@ import UserOptions from "./component/layout/Header/UserOptions";
 import { useSelector, useDispatch } from "react-redux";
 import Profile from "./User/Profile";
 import UserUpdate from "./User/UserUpdate.js"
-
+import UpdatePassword from "./User/UpdatePassword.js"
 
 
 
@@ -48,6 +48,7 @@ function App() {
           <Route path="/login" element={<LoginSignup />}></Route>
           <Route path="/account" element={<Profile />}></Route>
           {isAuthenticated&&<Route path="/me/update" element={<UserUpdate />}></Route>}
+          {isAuthenticated&&<Route path="password/update" element={<UpdatePassword />}></Route>}
 
         </Routes>
         <Footer />

@@ -15,6 +15,10 @@ import {
   UPDATE_USER_FAIL,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_RESET,
+  UPDATE_PASSWORD_REQUEST,
+  UPDATE_PASSWORD_RESET,
+  UPDATE_PASSWORD_SUCCESS,
+  UPDATE_PASSWORD_FAIL,
 } from "../constants/userConstant";
 
 import axios from "axios";
@@ -93,7 +97,24 @@ export const updateUser = (useData) => async (dispatch) => {
   }
 };
 
-
+export const updatePassword = (passwords) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_PASSWORD_REQUEST });
+    const config = { withCredentials: true, header: { "Content-Type": "application/json" } };
+    
+    const { data } = await axios.put(
+      "http://localhost:4000/api/vi/password/update",
+      passwords,
+      config
+    );
+    dispatch({ type: UPDATE_PASSWORD_SUCCESS, payload: data.user });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_PASSWORD_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 //Clearing Errors
 export const clearErrors = () => async (dispatch) => {
   dispatch({ type: CLEAR_ERROR });

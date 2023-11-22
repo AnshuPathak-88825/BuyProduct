@@ -22,7 +22,7 @@ router.route("/password/reset/:token").put(resetPassword);
 router.route("/logout").get(logout);
 router.route("/me").get(isAuthenticatedUser, getUserDetails);
 router.route("/me/update").put(isAuthenticatedUser, updateUserProfile);
-router.route("/password/update").get(isAuthenticatedUser, updatePassword);
+router.route("/password/update").put(isAuthenticatedUser, updatePassword);
 router
   .route("/admin/users")
   .get(isAuthenticatedUser, authorizeRoles("admin"), GetAllUser);
